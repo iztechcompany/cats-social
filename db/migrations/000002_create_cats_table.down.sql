@@ -1,0 +1,7 @@
+BEGIN;
+
+DROP TABLE IF EXISTS cats;
+DROP TYPE IF EXISTS enum_race;
+DROP TYPE IF EXISTS enum_sex;
+
+COMMIT;

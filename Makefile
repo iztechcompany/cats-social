@@ -56,5 +56,11 @@ watch:
 	        exit 1; \
 	    fi; \
 	fi
+	
+migrate_up:
+	@migrate -database "postgres://postgres:postgres@localhost:5432/cats_social?sslmode=disable" -path db/migrations -verbose up
+
+migrate_down:
+	@migrate -database "postgres://postgres:postgres@localhost:5432/cats_social?sslmode=disable" -path db/migrations -verbose down
 
 .PHONY: all build run test clean

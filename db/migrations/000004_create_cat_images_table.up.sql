@@ -1,0 +1,9 @@
+CREATE TABLE IF NOT EXISTS cat_images(
+    id BIGINT PRIMARY KEY,
+    cat_id BIGINT REFERENCES cats(id),
+    url TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    deleted_at TIMESTAMP,
+    FOREIGN KEY (cat_id) REFERENCES cats(id)
+);
