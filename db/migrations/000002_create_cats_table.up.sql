@@ -17,7 +17,7 @@ CREATE TYPE enum_sex AS ENUM (
     'female'
 );
 CREATE TABLE IF NOT EXISTS cats(
-    id BIGINT PRIMARY KEY,
+    id BIGSERIAL PRIMARY KEY,
     name VARCHAR(30) NOT NULL,
     race enum_race NOT NULL,
     sex enum_sex NOT NULL,
