@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS cat_matches(
-    id BIGINT PRIMARY KEY,
+    id BIGSERIAL PRIMARY KEY,
     issued_id BIGINT REFERENCES users(id),
     match_cat_id BIGINT REFERENCES cats(id),
     user_cat_id BIGINT REFERENCES cats(id),

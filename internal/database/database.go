@@ -14,6 +14,7 @@ import (
 
 type Service interface {
 	Health() map[string]string
+	GetDB() *sql.DB
 }
 
 type service struct {
@@ -21,11 +22,12 @@ type service struct {
 }
 
 var (
-	database   = os.Getenv("DB_DATABASE")
+	database   = os.Getenv("DB_NAME")
 	password   = os.Getenv("DB_PASSWORD")
 	username   = os.Getenv("DB_USERNAME")
 	port       = os.Getenv("DB_PORT")
 	host       = os.Getenv("DB_HOST")
+	params     = os.Getenv("DB_PARAMS")
 	dbInstance *service
 )
 
@@ -34,7 +36,7 @@ func New() Service {
 	if dbInstance != nil {
 		return dbInstance
 	}
-	connStr := fmt.Sprintf("postgres://%s:%s@%s:%s/%s?sslmode=disable", username, password, host, port, database)
+	connStr := fmt.Sprintf("postgres://%s:%s@%s:%s/%s?%s", username, password, host, port, database, params)
 	db, err := sql.Open("pgx", connStr)
 	if err != nil {
 		log.Fatal(err)
@@ -57,4 +59,8 @@ func (s *service) Health() map[string]string {
 	return map[string]string{
 		"message": "It's healthy",
 	}
+}
+
+func (s *service) GetDB() *sql.DB {
+	return s.db
 }
