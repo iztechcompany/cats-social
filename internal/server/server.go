@@ -14,6 +14,10 @@ import (
 	authH "cats-social/internal/handler/auth"
 	userR "cats-social/internal/repository/user"
 	authS "cats-social/internal/service/auth"
+
+	catH "cats-social/internal/handler/cat"
+	catR "cats-social/internal/repository/cat"
+	catS "cats-social/internal/service/cat"
 )
 
 type Server struct {
@@ -21,6 +25,7 @@ type Server struct {
 
 	db          database.Service
 	authhandler authH.AuthHandler
+	catHandler  catH.CatHandler
 }
 
 func NewServer() *http.Server {
@@ -32,10 +37,15 @@ func NewServer() *http.Server {
 	authService := authS.NewAuthService(userRepository)
 	authHandler := authH.NewAuthHandler(authService, validate)
 
+	catRepository := catR.NewCatPostgresRepository(db.GetDB())
+	catService := catS.NewCatService(catRepository)
+	catHandler := catH.NewCatHandler(catService, validate)
+
 	NewServer := &Server{
 		port: port,
 
 		authhandler: authHandler,
+		catHandler:  catHandler,
 		db:          db,
 	}
 
