@@ -13,5 +13,8 @@ func (s *Server) RegisterRoutes() http.Handler {
 	authGroup.POST("/login", s.authhandler.Login)
 	authGroup.POST("/register", s.authhandler.Register)
 
+	catGroup := r.Group("/v1/cat")
+	catGroup.POST("/", s.catHandler.Create)
+
 	return r
 }

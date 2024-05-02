@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS cats(
     sex enum_sex NOT NULL,
     age_in_month INTEGER CHECK (age_in_month BETWEEN 1 AND 120082) NOT NULL,
     description VARCHAR(200),
-    image_urls TEXT[] NOT NULL,
+    has_matched BOOLEAN DEFAULT false,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     deleted_at TIMESTAMP
